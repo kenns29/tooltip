@@ -47,11 +47,20 @@ element.addEventListener('mouseout', function(){
 ### Methods
 
 \# *tooltip*.container(*[container]*])
+
 \# *tooltip*.init()
+
 \# *tooltip*.show(*container, data*)
+
 \# *tooltip*.move(*container, [data]*)
+
 \# *tooltip*.hide()
+
 \# *tooltip*.x_pos(*pos_function*)
+
 \# *tooltip*.y_pos(*pos_function*)
+
 \# *tooltip*.font_size(*[size]*)
+
 \# *tooltip*.z_index(*[z_index]*)
+

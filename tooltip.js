@@ -1,4 +1,4 @@
-var d3 = require('d3-selection');
+var d3 = require('d3');
 d3.selection.prototype.moveToFront = function() {
   return this.each(function(){
     this.parentNode.appendChild(this);
@@ -36,7 +36,9 @@ module.exports = exports = function(_container){
 
 	function show(sel, data){
 		var element = sel;
-		if(sel.node && typeof sel.node === 'function')
+    if(typeof element === 'string'){
+      element = d3.select(sel).node();
+    } else if(sel.node && typeof sel.node === 'function')
 			element = sel.node();
 		var mouse = d3.mouse(element);
 		var x = mouse[0], y = mouse[1];
