@@ -1,5 +1,4 @@
-var d3 = require('d3');
-var $ = require('jquery');
+var d3 = require('d3-selection');
 d3.selection.prototype.moveToFront = function() {
   return this.each(function(){
     this.parentNode.appendChild(this);
@@ -11,12 +10,15 @@ module.exports = exports = function(_container){
 	if(_container !== undefined){
 		container = _container;
 	}
-	var font_size = '20px';
+	var font_size = 20;
+  var z_index = 99;
+  var css_class = 'tooltip';
 	function html_fun(d){return d;}
 	function init(){
 		tooltip = d3.select(container)
 		.append('div')
-		.style("z-index","9999999")
+    .attr('class', 'tooltip')
+		.style('z-index', z_index)
 		.style('opacity', 0)
 		.style('position', 'absolute')
 		.style('text-align', 'center')
@@ -29,7 +31,7 @@ module.exports = exports = function(_container){
 		return ret;
 	}
 
-	function x_pos(x){return x - $(this).width()/2;}
+	function x_pos(x){return x - this.offsetWidth/2;}
 	function y_pos(y){return y - 40;}
 
 	function show(sel, data){
@@ -38,29 +40,25 @@ module.exports = exports = function(_container){
 			element = sel.node();
 		var mouse = d3.mouse(element);
 		var x = mouse[0], y = mouse[1];
-		tooltip.selectAll('div').remove();
 		tooltip
 		.style('width', 'auto')
 		.style('height', 'auto')
 		.style("top", function(){
 			return y_pos.call(this, y) + 'px';
-		});
-		tooltip.append('div')
-		.style('width', 'auto')
-		.style('height', 'auto')
-		// .style('overflow-y', 'auto')
-		// .style('overflow-x', 'hidden')
-		.style('font-size', font_size)
-		.html(function(){return html_fun.call(this, data);});
-		tooltip.style('left', function(){return x_pos.call(this, x) + 'px';});
-		tooltip.style('display', null).style("opacity", .9);
+		})
+    .style('left', function(){return x_pos.call(this, x) + 'px';})
+		.style('display', null).style("opacity", .9)
+    .style('font-size', `${font_size}px`)
+    .html(function(){return html_fun.call(this, data);});
 		tooltip.moveToFront();
 		return ret;
 	}
 
 	function move(sel, data){
 		var element = sel;
-		if(sel.node && typeof sel.node === 'function')
+    if(typeof element === 'string'){
+      element = d3.select(sel).node();
+    } else if(sel.node && typeof sel.node === 'function')
 			element = sel.node();
 		var mouse = d3.mouse(element);
 		var x = mouse[0], y = mouse[1];
@@ -73,13 +71,12 @@ module.exports = exports = function(_container){
 			return y_pos.call(this, y) + 'px';
 		});
 		if(data !== undefined && data !== null){
-			tooltip.select('div').html(function(){return html_fun.call(this, data);});
+			tooltip.html(function(){return html_fun.call(this, data);});
 		}
 		return ret;
 	}
 
 	function hide(){
-		tooltip.selectAll('div').remove();
 		tooltip
 		.style('opacity', 0)
 		.style('display', 'none');
@@ -121,6 +118,13 @@ module.exports = exports = function(_container){
 			return ret;
 		} else return y_pos;
 	};
-	ret.font_size = function(_){return arguments.length > 0? (font_size = _, ret) : font_size;};
+	ret.font_size = function(_){
+    return arguments.length > 0 ? (font_size = _,
+      tooltip.style('font-size', `${font_size}px`), ret) : font_size;
+  };
+  ret.z_index = function(_){
+    return arguments.length > 0 ? (z_index = _,
+      tooltip.style('z-index', z_index), ret) : z_index;
+  };
 	return ret;
 };

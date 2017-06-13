@@ -1,0 +1,21 @@
+{
+  "name": "simple-tooltip",
+  "description": "Simple d3 tooltip",
+  "main": "tooltip.js",
+  "authors": [
+    "Hong Wang"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "tooltip",
+    "d3"
+  ],
+  "homepage": "https://github.com/kenns29/tooltip",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

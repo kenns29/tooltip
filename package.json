@@ -1,14 +1,24 @@
 {
-  "name": "tooltip",
-  "version": "0.0.1",
+  "name": "simple-tooltip",
+  "main": "tooltip.js",
+  "author": {
+    "name": "Hong Wang",
+    "email": "kennsmacintosh@gmail.com"
+  },
+  "version": "1.0.1",
   "description": "Simple d3 tooltip",
   "license": "MIT",
+  "repository": "https://github.com/kenns29/tooltip.git",
   "dependencies": {
-    "d3": "^4.9.1",
-    "jquery": "^3.2.1"
+    "d3": "^4.9.1"
   },
   "devDependencies": {
     "browserify": "^14.4.0",
-    "browserify-umdify": "^1.0.3"
+    "deamdify": "^0.3.0",
+    "deglobalify": "^0.2.0",
+    "es6ify": "^1.6.0"
+  },
+  "scripts": {
+    "build": "browserify -t deamdify -t es6ify -t deglobalify tooltip.js -o dist/tooltip.js"
   }
 }
