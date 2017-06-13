@@ -1,0 +1,14 @@
+{
+  "name": "tooltip",
+  "version": "0.0.1",
+  "description": "Simple d3 tooltip",
+  "license": "MIT",
+  "dependencies": {
+    "d3": "^4.9.1",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "browserify-umdify": "^1.0.3"
+  }
+}
