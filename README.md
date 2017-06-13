@@ -1,6 +1,9 @@
 # Simple Tooltip for javascript
+### Dependencies
 
-### install
+d3
+
+### Install
 
 #### npm
 
@@ -8,7 +11,7 @@
 
 #### bower
 
-```bower install simple-tooltip```
+```bower install d3-simple-tooltip```
 
 #### script tag
 
