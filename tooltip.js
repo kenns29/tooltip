@@ -1,9 +1,10 @@
 var d3 = require('d3');
-d3.selection.prototype.moveToFront = function() {
-  return this.each(function(){
-    this.parentNode.appendChild(this);
-  });
-};
+if(!d3.selection.prototype.raise)
+  d3.selection.prototype.raise = function(){
+    return this.each(function(){
+      this.parentNode.appendChild(this);
+    });
+  };
 module.exports = exports = function(_container){
 	var tooltip;
 	var container;
@@ -52,7 +53,7 @@ module.exports = exports = function(_container){
 		.style('display', null).style("opacity", .9)
     .style('font-size', `${font_size}px`)
     .html(function(){return html_fun.call(this, data);});
-		tooltip.moveToFront();
+		tooltip.raise();
 		return ret;
 	}
 
@@ -122,11 +123,11 @@ module.exports = exports = function(_container){
 	};
 	ret.font_size = function(_){
     return arguments.length > 0 ? (font_size = _,
-      tooltip.style('font-size', `${font_size}px`), ret) : font_size;
+      tooltip?tooltip.style('font-size', `${font_size}px`):null, ret) : font_size;
   };
   ret.z_index = function(_){
     return arguments.length > 0 ? (z_index = _,
-      tooltip.style('z-index', z_index), ret) : z_index;
+      tooltip?tooltip.style('z-index', z_index):null, ret) : z_index;
   };
 	return ret;
 };
