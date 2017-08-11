@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var ignore = new webpack.IgnorePlugin(/^(d3)$/)
+var ignore = new webpack.IgnorePlugin(/^(d3)$/);
 module.exports = exports = {
   entry: [
       './tooltip.js'
@@ -25,5 +25,5 @@ module.exports = exports = {
           }
       ]
   },
-  plugins:[ignore]
+  // plugins:[ignore]
 };

@@ -1,11 +1,11 @@
-import * as d3 from 'd3';
+const d3 = require('d3');
 if(!d3.selection.prototype.raise)
   d3.selection.prototype.raise = function(){
     return this.each(function(){
       this.parentNode.appendChild(this);
     });
   };
-export default function(_container){
+module.exports = function(_container){
 	var tooltip;
 	var container;
 	if(_container !== undefined){
@@ -131,6 +131,10 @@ export default function(_container){
   };
   ret.css_class = function(_){
     return arguments.length > 0 ? (css_class =_, tooltip?tooltip.attr('class', css_class):null, ret) : css_class;
+  };
+  ret.destroy = function(_){
+    if(tooltip) tooltip.remove();
+    return this;
   };
 	return ret;
 };
