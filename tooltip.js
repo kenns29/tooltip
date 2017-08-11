@@ -1,11 +1,11 @@
-var d3 = require('d3');
+import * as d3 from 'd3';
 if(!d3.selection.prototype.raise)
   d3.selection.prototype.raise = function(){
     return this.each(function(){
       this.parentNode.appendChild(this);
     });
   };
-module.exports = exports = function(_container){
+export default function(_container){
 	var tooltip;
 	var container;
 	if(_container !== undefined){
@@ -18,7 +18,7 @@ module.exports = exports = function(_container){
 	function init(){
 		tooltip = d3.select(container)
 		.append('div')
-    .attr('class', 'tooltip')
+    .attr('class', css_class)
 		.style('z-index', z_index)
 		.style('opacity', 0)
 		.style('position', 'absolute')
@@ -41,8 +41,8 @@ module.exports = exports = function(_container){
       element = d3.select(sel).node();
     } else if(sel.node && typeof sel.node === 'function')
 			element = sel.node();
-		var mouse = d3.mouse(element);
-		var x = mouse[0], y = mouse[1];
+		var pos = d3.mouse(element);
+		var x = pos[0], y = pos[1];
 		tooltip
 		.style('width', 'auto')
 		.style('height', 'auto')
@@ -63,8 +63,8 @@ module.exports = exports = function(_container){
       element = d3.select(sel).node();
     } else if(sel.node && typeof sel.node === 'function')
 			element = sel.node();
-		var mouse = d3.mouse(element);
-		var x = mouse[0], y = mouse[1];
+		var pos = d3.mouse(element);
+		var x = pos[0], y = pos[1];
 
 		tooltip
 		.style("left", function(){
@@ -128,6 +128,9 @@ module.exports = exports = function(_container){
   ret.z_index = function(_){
     return arguments.length > 0 ? (z_index = _,
       tooltip?tooltip.style('z-index', z_index):null, ret) : z_index;
+  };
+  ret.css_class = function(_){
+    return arguments.length > 0 ? (css_class =_, tooltip?tooltip.attr('class', css_class):null, ret) : css_class;
   };
 	return ret;
 };

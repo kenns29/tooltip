@@ -87,11 +87,15 @@ module.exports = __webpack_require__(1);
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-exports.default = function (_container) {
+if (!d3) {
+	var d3 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"d3\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+}
+if (!d3.selection.prototype.raise) d3.selection.prototype.raise = function () {
+	return this.each(function () {
+		this.parentNode.appendChild(this);
+	});
+};
+module.exports = exports = function exports(_container) {
 	var tooltip;
 	var container;
 	if (_container !== undefined) {
@@ -211,19 +215,7 @@ exports.default = function (_container) {
 	};
 	return ret;
 };
-
-var _d = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"d3\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var d3 = _interopRequireWildcard(_d);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-if (!d3.selection.prototype.raise) d3.selection.prototype.raise = function () {
-	return this.each(function () {
-		this.parentNode.appendChild(this);
-	});
-};
-;
+module.exports.d3 = d3;
 
 /***/ })
 /******/ ]);

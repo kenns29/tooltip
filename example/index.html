@@ -1,0 +1,43 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>Tooltip Example</title>
+  <style>
+    svg{
+      border:1px solid black;
+      width:100px;
+      height:50px;
+    }
+    #text{
+      fill:black;
+      text-anchor:middle;
+      dominant-baseline:middle;
+    }
+  </style>
+</head>
+<body>
+  <div id = "container">
+    <h3 id="title">Title</h3>
+    <svg>
+      <text x="50" y="25" id = "text">Mouse Over</text>
+    </svg>
+  </div>
+</body>
+<script src="d3.min.js"></script>
+<script src="tooltip.js"></script>
+<script type="text/javascript">
+  var title = d3.select('#title');
+  var text = d3.select('#text');
+  var tip = tooltip().container('#container')
+  .css_class('tooltip').init();
+  title.on('mouseover', function(){
+    tip.show('#container', 'hello');
+  });
+  title.on('mousemove', function(e){
+    tip.move('#container');
+  })
+  title.on('mouseout', function(e){
+    tip.hide();
+  });
+</script>
+</html>
